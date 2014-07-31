@@ -7,6 +7,8 @@
 #include <SDL/SDL.h>
 
 #include "pc.h"
+#include "platform.h"
+#include "graphics.h"
 
 #define WIDTH 640
 #define HEIGHT 480
@@ -46,6 +48,10 @@ int main ( int argc, char** argv )
     // load an image
     Pc lumikko;
     lumikko.load(screen);
+
+    // create a platform
+
+    Platform myPlatform(10, 50, 200, 0, 0, 0);
 
     // program main loop
     bool done = false;
@@ -110,6 +116,9 @@ int main ( int argc, char** argv )
 
         // clear screen
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 123, 34, 92));
+
+        // draw a platform
+        myPlatform.draw(screen);
 
         // draw lumikko
         lumikko.draw(screen);

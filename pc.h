@@ -1,5 +1,8 @@
-#include <iostream>
+#ifndef __pc_h__
+#define __pc_h__
 
+
+#include <iostream>
 #include <SDL/SDL.h>
 #include <string>
 
@@ -27,4 +30,4 @@ public:
 
 };
 
-
+#endif // __pc_h__

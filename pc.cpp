@@ -32,7 +32,7 @@ SDL_Surface *Pc::load_one_pic(string pic_bmp) {
         return NULL;
     }
 
-    // set the background
+    // set the background transparent
     SDL_SetColorKey(pic, SDL_SRCCOLORKEY, SDL_MapRGB(pic->format, 255, 0, 255));
 
     width = pic->w;
