@@ -1,0 +1,8 @@
+# käännöstiedostot
+
+obj
+bin
+
+# C::B työtiedostot
+
+*.depend
