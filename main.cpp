@@ -17,7 +17,6 @@
     - piirtofunktio eli liikkuminen pit‰‰ jotenkin synkata t‰h‰n
     - hyppiminen
     - painovoima
-    - jee
 */
 
 int main ( int argc, char** argv )
