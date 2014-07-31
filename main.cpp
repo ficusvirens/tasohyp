@@ -15,8 +15,7 @@
 
 /* TODO
     - pelihahmolle eri kuvakkeet eri suuntiin liikkumista varten (+ askellus?); koodin voi kopioida kettupelist‰
-    - taso-olio, jolla voi luoda ja piirt‰‰ ruudulle erilaisia tasoja
-    - piirtofunktio eli liikkuminen pit‰‰ jotenkin synkata t‰h‰n
+    - piirtofunktio eli liikkuminen pit‰‰ jotenkin synkata taso-olioihin
     - hyppiminen
     - painovoima
 */
