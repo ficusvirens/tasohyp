@@ -1,0 +1,16 @@
+TODO
+
+- liike (ylöspäin) vain jos hahmo seisoo jonkin päällä!
+- pelihahmolle eri kuvakkeet eri suuntiin liikkumista varten (+ askellus?); koodin voi kopioida kettupelistä
+- laboranttien kädet = pahikset
+- syötäviä hiiriä ja hiirihäkkejä
+- tason loppuminen ja siirtyminen seuraavaan tasoon
+
+VISIO
+
+    - lumikko koettaa valloittaa koe-eläinlabran
+    - syö matkan varrella hiiriä häkeistä tai irrallaan
+    - pahat laboranttien kädet vainoavat
+    - karttaruutu, josta näkyy kenttävalikoima
+    - kun kenttiä pääsee läpi, saa palikoita joilla edistää laboratorion valloitusta
+    - läpi pelattujen kenttien ohi voi kulkea suvereenisti
