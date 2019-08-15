@@ -4,6 +4,9 @@
 
 #include "pc.h"
 
+#define WIDTH 640
+#define HEIGHT 480
+
 using namespace std;
 
 Pc::Pc(){
@@ -11,7 +14,8 @@ Pc::Pc(){
 
     // let's start from the left bottom corner
     loc.x = 0;
-    loc.y = 480;
+    loc.y = 0;
+
 }
 
 // this is useful as we get more images for the main character (going left/right/up etc.)
@@ -38,7 +42,8 @@ SDL_Surface *Pc::load_one_pic(string pic_bmp) {
     width = pic->w;
     height = pic->h;
 
-    loc.y = 480-height;
+    collisionPointDown = 7;
+    collisionPointUp = height;
 
     return pic;
 }
@@ -52,10 +57,46 @@ void Pc::load(SDL_Surface *s) {
 
 void Pc::draw(SDL_Surface *s) {
     // this will be a much more complicated function as we get the other images...
-    SDL_BlitSurface(picture, 0, s, &loc);
+    SDL_Rect temp;
+    temp.x = loc.x;
+    temp.y = s->h-loc.y-height;
+    SDL_BlitSurface(picture, 0, s, &temp);
 }
 
 void Pc::freeSurface() {
     SDL_FreeSurface(picture);
 }
 
+void Pc::jump() {
+    speed_y += .8;
+}
+
+void Pc::go(int time) {
+    // location on the screen
+
+    loc.x += speed_x*time;
+    loc.y += speed_y*time;
+    speed_y -= g;  // gravitation
+
+
+    // stay on the screen
+    if (loc.x > WIDTH-width) {
+        loc.x = WIDTH-width;
+        speed_x = 0;
+    }
+    if (loc.x < 0) {
+        loc.x = 0;
+        speed_x = 0;
+    }
+    if (loc.y > HEIGHT-height) {
+        loc.y = HEIGHT-height;
+        speed_y = 0;
+    }
+    if (loc.y < 0) {
+        loc.y = 0;
+        speed_y = 0;
+    }
+
+    cout << "speed y " << speed_y << endl;
+
+}

@@ -13,11 +13,13 @@ class Pc
 public:
     SDL_Rect loc; // location on the screen in pixels
 
+    int collisionPointDown, collisionPointUp;
+
     int width, height;
 
-    float speed_x = 0, speed_y = 0;
+    float speed_x = 0, speed_y = 0, g = 0.02;
 
-    char direction = 'd';
+//    char direction = 'd';
     string bmp;
 
     SDL_Surface *picture;
@@ -27,6 +29,9 @@ public:
     void load(SDL_Surface *s);
     void draw(SDL_Surface *s);
     void freeSurface();
+    void jump();
+    void go(int time);
+
 
 };
 

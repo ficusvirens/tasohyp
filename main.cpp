@@ -18,12 +18,21 @@
     - piirtofunktio eli liikkuminen pit‰‰ jotenkin synkata taso-olioihin
     - hyppiminen
     - painovoima
+
+    VISIO
+    - lumikko koettaa valloittaa koe-el‰inlabran
+    - syˆ matkan varrella hiiri‰ h‰keist‰ tai irrallaan
+    - pahat laboranttien k‰det vainoavat
+    - karttaruutu, josta n‰kyy kentt‰valikoima
+    - kun kentti‰ p‰‰see l‰pi, saa palikoita joilla edist‰‰ laboratorion valloitusta
+    - l‰pi pelattujen kenttien ohi voi kulkea suvereenisti
 */
 
 int main ( int argc, char** argv )
 {
+    cout << "Main alkaa!\n";
 
-    unsigned int ticks = 0, oldticks = 0;
+    unsigned int ticks = 0, oldticks = 0, time = 0;
 
     // initialize SDL video
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -36,7 +45,7 @@ int main ( int argc, char** argv )
     atexit(SDL_Quit);
 
     // create a new window
-    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 16,
+    SDL_Surface* screen = SDL_SetVideoMode(640, 480, 32,
                                            SDL_HWSURFACE|SDL_DOUBLEBUF);
     if ( !screen )
     {
@@ -49,8 +58,11 @@ int main ( int argc, char** argv )
     lumikko.load(screen);
 
     // create a platform
-
+    vector<Platform> platforms;
     Platform myPlatform(10, 50, 200, 0, 0, 0);
+    platforms.push_back(myPlatform);
+    Platform myOtherPlatform(300, 180, 200, 0, 0, 0);
+    platforms.push_back(myOtherPlatform);
 
     // program main loop
     bool done = false;
@@ -81,10 +93,13 @@ int main ( int argc, char** argv )
                             lumikko.speed_x = -.5;
                             break;
                         case SDLK_UP:
-                            lumikko.speed_y = -.3;
+                            lumikko.speed_y = .3;
                             break;
                         case SDLK_DOWN:
-                            lumikko.speed_y = .3;
+                            lumikko.speed_y = -.3;
+                            break;
+                        case SDLK_SPACE:
+                            lumikko.jump();
                             break;
                         default:
                             break;
@@ -114,14 +129,17 @@ int main ( int argc, char** argv )
         // DRAWING STARTS HERE
 
         // clear screen
-        SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 123, 34, 92));
+ //       SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 123, 34, 92));
 
         // draw a platform
-        myPlatform.draw(screen);
+ //       platforms[0].draw(screen);
 
         // draw lumikko
-        lumikko.draw(screen);
+ //       lumikko.draw(screen);
 
+        // draw the screen, including pc and platforms
+        if (checkCollisions(lumikko, platforms, time)) lumikko.speed_y = 0;
+        drawScreen(screen, lumikko, platforms);
         // DRAWING ENDS HERE
 
         // finally, update the screen :)
@@ -130,16 +148,10 @@ int main ( int argc, char** argv )
         SDL_Delay(11);
         oldticks = ticks;
         ticks = SDL_GetTicks();
+        time = ticks-oldticks;
 
-        // location on the screen
-        lumikko.loc.x += lumikko.speed_x*(ticks-oldticks);
-        lumikko.loc.y += lumikko.speed_y*(ticks-oldticks);
-
-        // stay on the screen
-        if (lumikko.loc.x > WIDTH-lumikko.width) lumikko.loc.x = WIDTH-lumikko.width;
-        if (lumikko.loc.x < 0) lumikko.loc.x = 0;
-        if (lumikko.loc.y > HEIGHT-lumikko.height) lumikko.loc.y = HEIGHT-lumikko.height;
-        if (lumikko.loc.y < 0) lumikko.loc.y = 0;
+        // update the location on screen
+        lumikko.go(time);
 
     } // end main loop
 
